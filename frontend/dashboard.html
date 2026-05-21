@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Smart Queue</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Ambient background glow orbs -->
+  <div class="glow-orb-1"></div>
+  <div class="glow-orb-2"></div>
+
+  <!-- Main Dashboard Layout -->
+  <div class="app-container" style="display: block; padding: 2rem 1.5rem;">
+    <div class="dashboard-wrapper">
+      
+      <!-- Dashboard Top Header Bar -->
+      <nav class="dash-nav">
+        <div class="dash-nav-logo">SMART QUEUE</div>
+        
+        <div class="user-profile">
+          <div class="user-info">
+            <div class="user-name" id="welcome-name">Loading...</div>
+            <div style="font-size: 0.75rem; color: var(--text-secondary);" id="user-email">email@example.com</div>
+          </div>
+          <div class="user-role-badge" id="role-badge">User</div>
+          <button id="logout-btn" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; border-radius: 8px; width: auto; font-weight: 600;">
+            🚪 Logout
+          </button>
+        </div>
+      </nav>
+
+      <!-- Main Contents Grid -->
+      <div class="dashboard-grid">
+        
+        <!-- Left Column: Stats & Operations -->
+        <div class="main-dashboard-content">
+          
+          <!-- Stat Counter Cards Row -->
+          <div class="stats-row">
+            <!-- Active Token -->
+            <div class="stat-card active-card">
+              <div class="stat-card-title">Active Token</div>
+              <div class="stat-card-value" id="active-token-value">--</div>
+            </div>
+            <!-- Next Token -->
+            <div class="stat-card">
+              <div class="stat-card-title">Next Token</div>
+              <div class="stat-card-value" id="next-token-value">--</div>
+            </div>
+            <!-- Pending Count -->
+            <div class="stat-card">
+              <div class="stat-card-title">Pending Tokens</div>
+              <div class="stat-card-value" id="pending-count-value">--</div>
+            </div>
+          </div>
+
+          <!-- User Personal Token Status Card -->
+          <div class="user-status-card" id="user-token-section">
+            <!-- Rendered dynamically by dashboard.js -->
+            <div style="text-align: center; padding: 3rem 0;">
+              <span class="spinner" style="width: 2.5rem; height: 2.5rem;"></span>
+              <p style="color: var(--text-secondary); margin-top: 1rem;">Loading token status...</p>
+            </div>
+          </div>
+
+          <!-- Generate Token Operation Card -->
+          <div class="glass-panel" style="max-width: 100%; padding: 1.5rem; border-radius: 20px;">
+            <button id="generate-token-btn" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.1rem 2rem;">
+              ⚡ Generate Token
+            </button>
+          </div>
+
+          <!-- Admin Control Card (Rendered Conditionally) -->
+          <div class="admin-card hidden" id="admin-panel">
+            <div class="admin-card-title">🔑 Admin Control Panel</div>
+            <div class="admin-card-desc">Operate the queue flow. Call the next patient/customer in line.</div>
+            
+            <button id="next-token-btn" class="btn btn-primary" style="background: linear-gradient(135deg, var(--color-success) 0%, var(--color-info) 100%); border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);">
+              ➡️ Call Next Token
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Real-time Queue list & Search -->
+        <div class="sidebar-content">
+          <div class="queue-panel">
+            <div class="queue-panel-title">
+              <span>Live Queue List</span>
+              <span class="queue-badge-count" id="queue-badge-count">Active</span>
+            </div>
+
+            <!-- Search Field -->
+            <div class="form-group" style="margin-bottom: 1.25rem;">
+              <div class="input-wrapper">
+                <input 
+                  type="text" 
+                  id="search-token-input" 
+                  class="form-input" 
+                  placeholder="🔍 Search token # or user name..."
+                  style="padding: 0.7rem 0.9rem; font-size: 0.9rem;"
+                >
+              </div>
+            </div>
+
+            <!-- Queue Scrolling List container -->
+            <div class="queue-list" id="queue-list">
+              <!-- Dynamically populated queue items -->
+              <div class="queue-empty-state">
+                <p>Syncing queue state...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Socket.io client script served dynamically by backend -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- App API helper client -->
+  <script src="/js/api.js"></script>
+  <!-- App logout handler / guard -->
+  <script src="/js/auth.js"></script>
+  <!-- App dashboard renderer -->
+  <script src="/js/dashboard.js"></script>
+
+  <script>
+    // Double check user role badge representation
+    const profileUser = API.getUser();
+    if (profileUser && profileUser.is_admin) {
+      const badge = document.getElementById('role-badge');
+      if (badge) {
+        badge.textContent = 'Admin';
+        badge.style.background = 'rgba(236, 72, 153, 0.2)';
+        badge.style.color = '#f472b6';
+        badge.style.borderColor = 'rgba(236, 72, 153, 0.4)';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - Smart Queue</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Ambient background glow orbs -->
+  <div class="glow-orb-1"></div>
+  <div class="glow-orb-2"></div>
+
+  <div class="app-container">
+    <div class="glass-panel">
+      <div class="brand-header">
+        <a href="/index.html" style="text-decoration: none;" class="brand-logo">SMART QUEUE</a>
+        <div class="brand-tagline">Sign in to manage your tokens</div>
+      </div>
+
+      <form id="login-form">
+        <!-- Email Address -->
+        <div class="form-group">
+          <label for="login-email" class="form-label">Email Address</label>
+          <div class="input-wrapper">
+            <input 
+              type="email" 
+              id="login-email" 
+              class="form-input" 
+              placeholder="john@example.com" 
+              required
+              autocomplete="email"
+            >
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="login-password" class="form-label">Password</label>
+          <div class="input-wrapper">
+            <input 
+              type="password" 
+              id="login-password" 
+              class="form-input" 
+              placeholder="••••••••" 
+              required
+              autocomplete="current-password"
+            >
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary mt-4">
+          ⚡ Sign In
+        </button>
+      </form>
+
+      <!-- Footer Info -->
+      <div class="form-footer">
+        Don't have an account? 
+        <a href="/signup.html" class="form-link">Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load API & Auth helper scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>

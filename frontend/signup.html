@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account - Smart Queue</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Ambient background glow orbs -->
+  <div class="glow-orb-1"></div>
+  <div class="glow-orb-2"></div>
+
+  <div class="app-container">
+    <div class="glass-panel">
+      <div class="brand-header">
+        <a href="/index.html" style="text-decoration: none;" class="brand-logo">SMART QUEUE</a>
+        <div class="brand-tagline">Create your profile to join the queue</div>
+      </div>
+
+      <form id="signup-form">
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="signup-name" class="form-label">Full Name</label>
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              id="signup-name" 
+              class="form-input" 
+              placeholder="John Doe" 
+              required
+              autocomplete="name"
+            >
+          </div>
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-group">
+          <label for="signup-email" class="form-label">Email Address</label>
+          <div class="input-wrapper">
+            <input 
+              type="email" 
+              id="signup-email" 
+              class="form-input" 
+              placeholder="john@example.com" 
+              required
+              autocomplete="email"
+            >
+          </div>
+        </div>
+
+        <!-- Mobile Number -->
+        <div class="form-group">
+          <label for="signup-mobile" class="form-label">Mobile Number</label>
+          <div class="input-wrapper">
+            <input 
+              type="tel" 
+              id="signup-mobile" 
+              class="form-input" 
+              placeholder="e.g. 9876543210" 
+              required
+              autocomplete="tel"
+            >
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="signup-password" class="form-label">Password</label>
+          <div class="input-wrapper">
+            <input 
+              type="password" 
+              id="signup-password" 
+              class="form-input" 
+              placeholder="••••••••" 
+              required
+              minlength="6"
+              autocomplete="new-password"
+            >
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary mt-4">
+          ⚡ Sign Up
+        </button>
+      </form>
+
+      <!-- Footer Info -->
+      <div class="form-footer">
+        Already have an account? 
+        <a href="/login.html" class="form-link">Sign In</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load API & Auth helper scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Queue - Live Token Management System</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script>
+    // Proactively redirect authenticated users to the dashboard
+    if (localStorage.getItem('token') && localStorage.getItem('user')) {
+      window.location.href = '/dashboard.html';
+    }
+  </script>
+</head>
+<body>
+  <!-- Ambient background glow orbs -->
+  <div class="glow-orb-1"></div>
+  <div class="glow-orb-2"></div>
+
+  <div class="app-container">
+    <div class="glass-panel" style="max-width: 550px; text-align: center;">
+      <div class="brand-header">
+        <div class="brand-logo">SMART QUEUE</div>
+        <div class="brand-tagline">Real-Time Token Management System</div>
+      </div>
+
+      <div style="margin-bottom: 2rem; text-align: left; font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);">
+        <p style="margin-bottom: 1rem;">
+          Welcome to the Smart Queue System. Eliminate waiting physical lines at bank counters, hospital receptions, or food outlets with a modern live token system.
+        </p>
+        
+        <div style="display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin-top: 1.5rem;">
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span style="color: var(--color-primary); font-weight: bold;">⚡</span>
+            <span>Self-generated digital tokens with live queue monitoring</span>
+          </div>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span style="color: var(--color-primary); font-weight: bold;">⚡</span>
+            <span>Real-time instant screen updates using WebSockets</span>
+          </div>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span style="color: var(--color-primary); font-weight: bold;">⚡</span>
+            <span>Secure account validation via EmailJS verification links</span>
+          </div>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span style="color: var(--color-primary); font-weight: bold;">⚡</span>
+            <span>Admin controls to advance queue state instantly</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; flex-direction: column;">
+        <a href="/login.html" class="btn btn-primary" style="text-decoration: none;">Sign In</a>
+        <a href="/signup.html" class="btn btn-secondary" style="text-decoration: none;">Create Free Account</a>
+      </div>
+
+      <div class="form-footer" style="margin-top: 2rem;">
+        <span style="font-size: 0.8rem; color: var(--text-muted);">
+          Built with Node.js, Express, Supabase, EmailJS & Socket.io
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

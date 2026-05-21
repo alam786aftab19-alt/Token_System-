@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verifying Email - Smart Queue</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Ambient background glow orbs -->
+  <div class="glow-orb-1"></div>
+  <div class="glow-orb-2"></div>
+
+  <div class="app-container">
+    <!-- verify-status-box is dynamically updated by auth.js -->
+    <div class="glass-panel text-center" id="verify-status-box" style="padding: 3rem 2rem;">
+      <span class="spinner" style="width: 3rem; height: 3rem; margin-bottom: 1.5rem;"></span>
+      <h2>Verifying Email...</h2>
+      <p style="color: var(--text-secondary); margin-top: 0.5rem;">Connecting to token service database. Please hold on.</p>
+    </div>
+  </div>
+
+  <!-- Load API & Auth helper scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>
