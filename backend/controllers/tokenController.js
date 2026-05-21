@@ -84,9 +84,27 @@ const generateToken = async (req, res) => {
       throw new Error(`Error fetching today's tokens: ${fetchError.message}`);
     }
 
-    const nextTokenNumber = todayTokens && todayTokens.length > 0 
-      ? todayTokens[0].token_number + 1 
-      : 1;
+    const nextTokenNumber = await (async () => {
+      let startingNumber = 1;
+      try {
+        const { data: settingData } = await supabase
+          .from('token_system_settings')
+          .select('value')
+          .eq('key', 'starting_token_number')
+          .maybeSingle();
+        if (settingData && settingData.value) {
+          startingNumber = parseInt(settingData.value, 10) || 1;
+        }
+      } catch (err) {
+        console.warn('token_system_settings table query failed, defaulting starting number to 1:', err.message);
+      }
+
+      const todayMax = todayTokens && todayTokens.length > 0 
+        ? todayTokens[0].token_number 
+        : 0;
+
+      return Math.max(todayMax + 1, startingNumber);
+    })();
 
     // 3. Create the token
     const { data: newToken, error: insertError } = await supabase
@@ -321,9 +339,51 @@ const moveToNext = async (req, res) => {
   }
 };
 
+/**
+ * Update the starting token number (Admin only)
+ */
+const updateStartingNumber = async (req, res) => {
+  try {
+    // 1. Verify user is admin
+    if (!req.user.is_admin) {
+      return res.status(403).json({ error: 'Unauthorized. Admin access required.' });
+    }
+
+    const { starting_number } = req.body;
+    const parsedNumber = parseInt(starting_number, 10);
+
+    if (isNaN(parsedNumber) || parsedNumber < 1) {
+      return res.status(400).json({ error: 'Please enter a valid starting number (minimum 1).' });
+    }
+
+    // 2. Save or update the starting number in settings
+    const { error: upsertErr } = await supabase
+      .from('token_system_settings')
+      .upsert({ key: 'starting_token_number', value: parsedNumber.toString() }, { onConflict: 'key' });
+
+    if (upsertErr) {
+      if (upsertErr.message.includes('relation "token_system_settings" does not exist') || upsertErr.code === '42P01') {
+        return res.status(400).json({
+          error: 'Database table "token_system_settings" is missing. Please run the SQL table creation script in Supabase first.'
+        });
+      }
+      throw new Error(`Failed to update starting number in database: ${upsertErr.message}`);
+    }
+
+    return res.status(200).json({
+      message: `Starting token number successfully set to ${parsedNumber}.`
+    });
+
+  } catch (error) {
+    console.error('Update Starting Number Error:', error);
+    return res.status(500).json({ error: 'Server error updating starting token number.' });
+  }
+};
+
 module.exports = {
   generateToken,
   getCurrentToken,
   getQueue,
-  moveToNext
+  moveToNext,
+  updateStartingNumber
 };

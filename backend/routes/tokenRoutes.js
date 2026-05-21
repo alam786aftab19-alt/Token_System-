@@ -19,4 +19,7 @@ router.post('/generate', verifyMiddleware, tokenController.generateToken);
 // Advance the queue to the next pending token (Admin only, checks is_admin in controller)
 router.post('/next', verifyMiddleware, tokenController.moveToNext);
 
+// Set starting token number (Admin only, checks is_admin in controller)
+router.post('/settings/starting-number', verifyMiddleware, tokenController.updateStartingNumber);
+
 module.exports = router;
