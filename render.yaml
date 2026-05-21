@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: token-queue-system
+    env: node
+    plan: free
+    buildCommand: npm install --prefix backend
+    startCommand: node backend/server.js
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: FRONTEND_URL
+        value: https://token-queue-system.onrender.com # Update with your Render URL after deployment
+      - key: JWT_SECRET
+        generateValue: true # Generates a secure random key automatically on Render
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: GMAIL_USER
+        sync: false
+      - key: GMAIL_PASS
+        sync: false
+      - key: EMAILJS_SERVICE_ID
+        sync: false
+      - key: EMAILJS_TEMPLATE_ID
+        sync: false
+      - key: EMAILJS_PUBLIC_KEY
+        sync: false
+      - key: EMAILJS_PRIVATE_KEY
+        sync: false
